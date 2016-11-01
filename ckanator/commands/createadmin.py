@@ -19,11 +19,11 @@ class CreateAdmin(ClinetDockerBase):
         usuario = self.options.get('--username')
 
         if not usuario:
-            self.errors = colored.red("Debes especificar un nombre de usuario para el administrador")
+            self._errors = colored.red("Debes especificar un nombre de usuario para el administrador")
             return False
 
         if not password:
-            self.errors = colored.red("Debes especificar el password del administrador")
+            self._errors = colored.red("Debes especificar el password del administrador")
             return False
 
         # Obtencion del contenedor CKAN
@@ -39,8 +39,8 @@ class CreateAdmin(ClinetDockerBase):
             child.expect('(?i)Confirm password:')
             child.sendline(password)
         except:
-            self.errors = colored.red("Algo salio mal. Por favor vuelve a intentarlo")
-            self.errors += '{0} \n {1}'.format(child.after, child.before)
+            self._errors = colored.red("Algo salio mal. Por favor vuelve a intentarlo")
+            self._errors += '{0} \n {1}'.format(child.after, child.before)
             return False
 
         print colored.green("Se ha creado el usuario {0}".format(usuario))

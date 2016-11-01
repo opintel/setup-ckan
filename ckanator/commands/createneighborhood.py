@@ -56,7 +56,7 @@ class CreageNeighborhood(ClinetDockerBase):
                 # Guardado del log de la salida del proceso
                 self.responses.append(line)
         except TypeError, e:
-            self.errors = colored.red(str(e))
+            self._errors = colored.red(str(e))
             return False
 
         return True

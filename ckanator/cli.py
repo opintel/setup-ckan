@@ -7,9 +7,9 @@ Usage:
    ckanator runserver (--postgrespass=<postgrespass> --siteurl=<siteurl>)
    ckanator createadmin [--username=<username> --password=<password>]
 """
-from inspect import getmembers, isclass
 from docopt import docopt
 from ckanator import __version__ as VERSION
+from ckanator.commands import CreageNeighborhood, RunServer, CreateAdmin
 
 
 def main():
@@ -17,18 +17,19 @@ def main():
     Entry Point de la herramienta
     CLI de ckanator
     """
-    from ckanator import commands
     # Parsear parametros de configuracion
     options = docopt(__doc__, version=VERSION)
+    commands = {
+        'createneighborhood': CreageNeighborhood,
+        'runserver': RunServer,
+        'createadmin': CreateAdmin
+    }
 
     for key, value in options.iteritems():
         # Buscar el comando solicitado
-        if hasattr(commands, key) and value:
-            module = getattr(commands, key)
-            commands = getmembers(module, isclass)
-            # Se busca el comando en las funciones
-            command = [command[1] for command in commands if command[0] != 'ClinetDockerBase'][0]
+        if commands.get(key) and value:
+            command = commands.get(key)
             command = command(options=options)
             # Correr comando
             if command.run() is False:
-                print command.erros
+                print command.errors

@@ -14,7 +14,7 @@ class ClinetDockerBase(object):
         self.kwargs = kwargs
         self.client = docker.AutoVersionClient()
         self.responses = []
-        self.errors = None
+        self._errors = None
 
     @staticmethod
     def imprime_centrado(str):
@@ -31,3 +31,7 @@ class ClinetDockerBase(object):
         Return: Boolean
         """
         raise NotImplementedError('You must implement the run() method yourself')
+
+    @property
+    def errors(self):
+        return self._errors

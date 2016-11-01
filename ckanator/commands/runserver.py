@@ -30,11 +30,11 @@ class RunServer(ClinetDockerBase):
 
         # Validacion de los parametros
         if not site_url:
-            self.errors = colored.red("Debes definir una url base. Ejemplo: http://localhost")
+            self._errors = colored.red("Debes definir una url base. Ejemplo: http://localhost")
             return False
 
         if not postgres_password:
-            self.errors = colored.red("Debes definir una contraseña para la Base de Datos")
+            self._errors = colored.red("Debes definir una contraseña para la Base de Datos")
             return False
 
         # Parametrizacion de las opciones a var envs
@@ -72,7 +72,7 @@ class RunServer(ClinetDockerBase):
         """
         for line in output.split('\n'):
             if 'Error response from daemon:' in line:
-                self.errors = line.split('Error response from daemon:')[1]
+                self._errors = line.split('Error response from daemon:')[1]
                 return False
 
         return True
