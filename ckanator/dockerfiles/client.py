@@ -3,6 +3,11 @@ import docker
 
 
 class ClinetDockerBase(object):
+    """
+    Clase base de un comando
+    CLI en la herramienta
+    ckanator
+    """
     def __init__(self, *args, **kwargs):
         self.options = kwargs.get('options', {})
         self.args = args
@@ -11,7 +16,8 @@ class ClinetDockerBase(object):
         self.responses = []
         self.errors = None
 
-    def imprime_centrado(self, str):
+    @staticmethod
+    def imprime_centrado(str):
         """
         Metodo: Imprime un mensaje centrado
         en base al ancho actual de la shell

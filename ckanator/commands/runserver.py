@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
-import re
 import subprocess
-#from subprocess import Popen, PIPE, TimeoutExpired
 from clint.textui import colored
 from ckanator.settings import CURRENT_PATH
 from ckanator.dockerfiles.client import ClinetDockerBase
@@ -12,7 +10,7 @@ class RunServer(ClinetDockerBase):
     """
     Clase: Comando que levanta un SWARM Docker
     con el ambiente necesario para correr una
-    instancia funcional de CKAN 
+    instancia funcional de CKAN
     """
     def run(self):
         """
@@ -24,10 +22,10 @@ class RunServer(ClinetDockerBase):
 
         Return: Boolean
         """
-        
+
         # Obtencion de los parametros
-        site_url = self.options.get('--siteurl', None)
-        postgres_password = self.options.get('--postgrespass', None)
+        site_url = self.options.get('--siteurl')
+        postgres_password = self.options.get('--postgrespass')
         sh_script_path = os.path.join(CURRENT_PATH, 'dockerfiles/run-server.sh')
 
         # Validacion de los parametros
@@ -71,7 +69,7 @@ class RunServer(ClinetDockerBase):
         elif output in "Ha ocurrido un error al levantar el SWARM":
             return False
         else:
-        """       
+        """
         for line in output.split('\n'):
             if 'Error response from daemon:' in line:
                 self.errors = line.split('Error response from daemon:')[1]

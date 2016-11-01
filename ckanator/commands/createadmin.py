@@ -9,12 +9,14 @@ class CreateAdmin(ClinetDockerBase):
     Clase que representa la accion de crear
     un CKAN admin mediante la CLI Tool
     """
+
     def run(self):
         """
-        Metodo que crea un administrador en la instancia de ckan
+        Metodo que crea un administrador
+        en la instancia de ckan
         """
-        password = self.options.get('--password', None)
-        usuario = self.options.get('--username', None)
+        password = self.options.get('--password')
+        usuario = self.options.get('--username')
 
         if not usuario:
             self.errors = colored.red("Debes especificar un nombre de usuario para el administrador")
@@ -43,4 +45,3 @@ class CreateAdmin(ClinetDockerBase):
 
         print colored.green("Se ha creado el usuario {0}".format(usuario))
         return True
-

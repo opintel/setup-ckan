@@ -14,6 +14,10 @@ class TestCreateNeighborhood(unittest.TestCase):
         self.client_docker = None
 
     def test_create_neighborhood(self):
+        """
+        Verifica caso de prueba en la
+        creacion de las imagenes Docker
+        """
         command = CreageNeighborhood(options={})
         # Verificar completado del proceso
         self.assertEqual(command.run(), True)
@@ -29,6 +33,11 @@ class TestCreateNeighborhood(unittest.TestCase):
         self.assertEqual(counter, 3)
 
     def test_run_server(self):
+        """
+        Verifica caso de prueba en la
+        creacion del swarm de CKAN
+        """
+
         # Verificar validaciones de parametros
         command = RunServer(options={})
         # Verificar parametros incompletos
@@ -57,6 +66,12 @@ class TestCreateNeighborhood(unittest.TestCase):
         self.assertEqual('This node is already part of a swarm. Use "docker swarm leave" to leave this swarm and join another one.' in command.errors, True)
 
     def test_create_admin(self):
+        """
+        Verifica caso de prueba en
+        la creacion de un usuario administrador
+        de CKAN
+        """
+
         # Verificar validaciones de parametros
         command = CreateAdmin(options={})
 

@@ -26,7 +26,7 @@ class CreageNeighborhood(ClinetDockerBase):
             self.imprime_centrado('*')
             self.imprime_centrado("Building {0}".format(dockerfile_path[0]))
             self.imprime_centrado('*')
-           
+
             if not self.contruir_imagen(dockerfile_path):
                 return False
 
@@ -43,7 +43,14 @@ class CreageNeighborhood(ClinetDockerBase):
         Return: Boolean
         """
         try:
-           for line in self.client.build(dockerfile=dockerfile_path[1], rm=True, tag=dockerfile_path[0], path=dockerfile_path[2]):
+            opciones = {
+                'dockerfile': dockerfile_path[1],
+                'rm': True,
+                'tag': dockerfile_path[0],
+                'path': dockerfile_path[2]
+            }
+
+            for line in self.client.build(**opciones):
                 # Imprimir la salida en pantalla
                 self._imprime_output_formateado(line)
                 # Guardado del log de la salida del proceso
@@ -54,7 +61,8 @@ class CreageNeighborhood(ClinetDockerBase):
 
         return True
 
-    def _imprime_output_formateado(self, line):
+    @staticmethod
+    def _imprime_output_formateado(line):
         """
         Metodo: Imprime la salida en consola
         formateada en base al tipo de salida
