@@ -1,3 +1,11 @@
+"""
+Comando base CLI del que 
+heredan los comandos de
+ckanator.
+
+Author: Francisco Vaquero
+Email: francisco@opi.la
+"""
 import os
 import docker
 

@@ -1,3 +1,12 @@
+"""
+Comando CLI para crear
+el ambiente Docker, construir
+imagenes de los componentes
+de CKAN.
+
+Author: Francisco Vaquero
+Email: francisco@opi.la
+"""
 from clint.textui import colored
 from ckanator.settings import DOCKER_FILES_PATH
 from ckanator.dockerfiles.client import ClinetDockerBase
@@ -55,8 +64,8 @@ class CreageNeighborhood(ClinetDockerBase):
                 self._imprime_output_formateado(line)
                 # Guardado del log de la salida del proceso
                 self.responses.append(line)
-        except TypeError, e:
-            self._errors = colored.red(str(e))
+        except TypeError, error:
+            self._errors = colored.red(str(error))
             return False
 
         return True
@@ -71,7 +80,7 @@ class CreageNeighborhood(ClinetDockerBase):
         import re
         import json
 
-        nl = None
+        n_linea = None
         # Remueve caracteres no deseados
         regex_indeseados = re.compile("[\n\t\r]")
 
@@ -83,12 +92,15 @@ class CreageNeighborhood(ClinetDockerBase):
             return False
 
         if line.get('stream', ''):
-            nl = colored.cyan(regex_indeseados.sub("", line.get('stream', '')))
+            n_linea = colored.cyan( \
+                regex_indeseados.sub("", line.get('stream', '')))
         if line.get('status', ''):
-            nl = colored.cyan(regex_indeseados.sub("", line.get('status', '')))
+            n_linea = colored.cyan( \
+                regex_indeseados.sub("", line.get('status', '')))
         elif line.get('error', ''):
-            nl = colored.red(regex_indeseados.sub("", line.get('error', '')))
+            n_linea = colored.red( \
+                regex_indeseados.sub("", line.get('error', '')))
         else:
             return False
 
-        print nl
+        print n_linea

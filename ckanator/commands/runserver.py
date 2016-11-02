@@ -1,4 +1,12 @@
 # -*- coding: utf-8 -*-
+"""
+Comando CLI para crear
+el SWARM donde vivira la instalacion
+de CKAN.
+
+Author: Francisco Vaquero
+Email: francisco@opi.la
+"""
 import os
 import subprocess
 from clint.textui import colored
@@ -30,23 +38,27 @@ class RunServer(ClinetDockerBase):
 
         # Validacion de los parametros
         if not site_url:
-            self._errors = colored.red("Debes definir una url base. Ejemplo: http://localhost")
+            self._errors = colored.red("Debes definir una \
+                url base. Ejemplo: http://localhost")
             return False
 
         if not postgres_password:
-            self._errors = colored.red("Debes definir una contraseña para la Base de Datos")
+            self._errors = colored.red("Debes definir una \
+                contraseña para la Base de Datos")
             return False
 
         # Parametrizacion de las opciones a var envs
         os.environ.setdefault('SITE_CKAN_URL', site_url)
-        os.environ.setdefault('POSTGRES_CKAN_PASSWORD_CLI', postgres_password)
+        os.environ.setdefault('POSTGRES_CKAN_PASSWORD_CLI', \
+            postgres_password)
 
         # Creacion del SWARM
         self.imprime_centrado('*')
         self.imprime_centrado("Comenzando creacion del SWARM CKAN")
         self.imprime_centrado('*')
 
-        stdout = subprocess.check_output(['bash', sh_script_path], stderr=subprocess.STDOUT)
+        stdout = subprocess.check_output(['bash', sh_script_path], \
+            stderr=subprocess.STDOUT)
 
         # Borrado de variables de entorno
         os.environ.setdefault('SITE_CKAN_URL', '')
