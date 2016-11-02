@@ -6,8 +6,9 @@ Los scripts sin extendibles, lo que permite al usuario mas experimentado y avanz
 
 
 # Requerimientos
-  - [Python](https://www.python.org/).
-  - [Docker](https://www.docker.com/).
+  - [Git](https://git-scm.com/)
+  - [Python 2.7.10](https://www.python.org/).
+  - [Docker 1.12.2](https://www.docker.com/).
 
 **Nota: Las siguientes instrucciones no pretenden instruir al usuario en el uso de tecnologias basadas en Docker. Para mas información sobre los requerimientos ir al sitio oficial que esta referenciado en cada elemento de los requerimientos**
 
