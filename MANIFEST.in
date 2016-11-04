@@ -1,1 +1,1 @@
-recursive-include ckanator/dockerfiles *
+recursive-include kitcat/dockerfiles *

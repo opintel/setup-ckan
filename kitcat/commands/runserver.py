@@ -10,8 +10,8 @@ Email: francisco@opi.la
 import os
 import subprocess
 from clint.textui import colored
-from ckanator.settings import CURRENT_PATH
-from ckanator.dockerfiles.client import ClinetDockerBase
+from kitcat.settings import CURRENT_PATH
+from kitcat.dockerfiles.client import ClinetDockerBase
 
 
 class RunServer(ClinetDockerBase):

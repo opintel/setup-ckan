@@ -1,9 +1,9 @@
 import unittest
 import docker
-from ckanator import settings
-from ckanator.commands.runserver import RunServer
-from ckanator.commands.createadmin import CreateAdmin
-from ckanator.commands.createneighborhood import CreageNeighborhood
+from kitcat import settings
+from kitcat.commands.runserver import RunServer
+from kitcat.commands.createadmin import CreateAdmin
+from kitcat.commands.createneighborhood import CreageNeighborhood
 
 
 class TestCreateNeighborhood(unittest.TestCase):

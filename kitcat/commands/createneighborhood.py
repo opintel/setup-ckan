@@ -8,8 +8,8 @@ Author: Francisco Vaquero
 Email: francisco@opi.la
 """
 from clint.textui import colored
-from ckanator.settings import DOCKER_FILES_PATH
-from ckanator.dockerfiles.client import ClinetDockerBase
+from kitcat.settings import DOCKER_FILES_PATH
+from kitcat.dockerfiles.client import ClinetDockerBase
 
 
 class CreageNeighborhood(ClinetDockerBase):

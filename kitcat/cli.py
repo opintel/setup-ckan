@@ -1,21 +1,21 @@
 #!/usr/bin/env python
 """
-ckanator
+kitcat
 
 Usage:
-   ckanator createneighborhood
-   ckanator runserver (--postgrespass=<postgrespass> --siteurl=<siteurl>)
-   ckanator createadmin [--username=<username> --password=<password>]
+   kitcat createneighborhood
+   kitcat runserver (--postgrespass=<postgrespass> --siteurl=<siteurl>)
+   kitcat createadmin [--username=<username> --password=<password>]
 """
 from docopt import docopt
-from ckanator import __version__ as VERSION
-from ckanator.commands import CreageNeighborhood, RunServer, CreateAdmin
+from kitcat import __version__ as VERSION
+from kitcat.commands import CreageNeighborhood, RunServer, CreateAdmin
 
 
 def main():
     """
     Entry Point de la herramienta
-    CLI de ckanator
+    CLI de kitcat
     """
     # Parsear parametros de configuracion
     options = docopt(__doc__, version=VERSION)

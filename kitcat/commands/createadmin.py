@@ -8,7 +8,7 @@ Email: francisco@opi.la
 import pexpect
 import subprocess
 from clint.textui import colored
-from ckanator.dockerfiles.client import ClinetDockerBase
+from kitcat.dockerfiles.client import ClinetDockerBase
 
 
 class CreateAdmin(ClinetDockerBase):
