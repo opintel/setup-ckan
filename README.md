@@ -13,6 +13,10 @@ El kit de las ciudades abiertas instala automáticamente un paquete de herramien
 4. KISS (keep it simple and small) - nos enfocamos en utilizar los menores recursos posibles.
 5. No reinventamos ruedas - mejor utilizar recetas e instalaciones probadas por la comunidad que hacerla uno mismo.
 
+### Requerimientos
+- [Docker 1.12](https://www.docker.com/)
+- [Python 2.7.10](https://www.python.org/downloads/)
+
 ### Instalacion
 
 Para usar kitcat en su ambiente es necesario seguir los siguientes pasos.
@@ -26,18 +30,32 @@ $ git clone git@github.com:mxabierto/kitcat.git
 ```
 2. Se instala la aplicación junto con las dependencias faltantes.
 ```sh
-$ bash kitcat/install.sh develop
+$ bash kitcat/install.sh
 ```
+
 ### Uso
-Finalmente para levantar el ecosistema de CKAN es necesario correr los siguientes comandos.
+Para construir los componentes del ecosistema CKAN se debe correr el siguiente comando.
 
 ```sh
 $ kitcat createneighborhood
+```
+
+Despues para levantar el ambiente se debe correr el siguiente comando:
+
+```sh
 $ kitcat runserver --postgrespass=<postgrespass> --siteurl=<host>
 ```
+
 Donde *postgrespass* sera el password de la base de datos y *siteurl* la url base donde correra la instalación de CKAN (http://tudominio.com).
 
 Para corroborar la instalación se debe revisar el puerto y host por medio del navegador.
+
+En caso de algun error se deben correr los siguientes comandos y luego volver a correr el comando runserver.
+
+```sh
+$ docker swarm leave --force
+$ docker network rm mynetckan
+```
 
 ### Creacion de usuario master
 Para la creación de un usuario master se deben tener instaladas y levantadas las instancias del ecosistema de CKAN previamente. Para corroborar la instalación y el estado de las instancias correr el siguiente comando que arrojará un listado de las instancias que estan corriendo actualmente en el host:
