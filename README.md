@@ -29,9 +29,12 @@ Para usar kitcat en su ambiente es necesario seguir los siguientes pasos.
 $ git clone git@github.com:mxabierto/kitcat.git
 ```
 2. Se instala la aplicación junto con las dependencias faltantes.
+
 ```sh
 $ bash kitcat/install.sh
 ```
+
+**Nota: Las dependencias que se instalaran son: Docker 1.12, pip (ultima versión), setuptools(ultima versión)**
 
 ### Uso
 Para construir los componentes del ecosistema CKAN se debe correr el siguiente comando.
