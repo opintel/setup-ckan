@@ -1,24 +1,46 @@
-# set -e
+set -e
+
+# VARIABLES DE CONFIGURACION
+export POSTGRES_CKAN_PASSWORD_CLI=
+export SITE_CKAN_URL=
+
+# ASIGNACION DE PASSWORD OBLIGATORIA
+while [[ -z "$POSTGRES_CKAN_PASSWORD_CLI" ]]; do
+    echo "Ingresa el password para la base de datos: "
+    read POSTGRES_CKAN_PASSWORD_CLI
+done
+
+# ASIGNACION DE HOST OPCIONAL
+echo "Ingresa el CKAN host (Default: http://localhost): "
+read SITE_CKAN_URL
+
+if [[ -z "$SITE_CKAN_URL" ]]; then
+    SITE_CKAN_URL="http://localhost"
+fi
+
+# INSTALACION DE DEPENDENCIAS
 # {
-# 	wget -qO- https://get.docker.com/ | sh
-# 	wget https://bootstrap.pypa.io/ez_setup.py -O - | sudo python
-# 	wget https://bootstrap.pypa.io/get-pip.py -O - | sudo python	
+#   wget -qO- https://get.docker.com/ | sh
+#   wget https://bootstrap.pypa.io/ez_setup.py -O - | sudo python
+#   wget https://bootstrap.pypa.io/get-pip.py -O - | sudo python
 # } || {
-# 	echo "Algo salio mal instalando las dependencias"
+#   echo "Algo salio mal instalando las dependencias"
 # }
 
+
+# CONSTRUCCION DE IMAGENES
 {
-	docker build -t ckan/ckan-postgres $(pwd)/dockerfiles/ckan-postgres/.
-	docker build -t ckan/ckan-solr $(pwd)/dockerfiles/ckan-solr
-	docker build -t ckan/ckan-base $(pwd)/dockerfiles/ckan
-	docker build -t ckan/ckan-plugins $(pwd)/dockerfiles/ckan-plugins
+    docker build -t ckan/ckan-postgres $(pwd)/dockerfiles/ckan-postgres/.
+    docker build -t ckan/ckan-solr $(pwd)/dockerfiles/ckan-solr
+    docker build -t ckan/ckan-base $(pwd)/dockerfiles/ckan
+    docker build -t ckan/ckan-plugins $(pwd)/dockerfiles/ckan-plugins
 
 } || {
-	echo "Algo salio construyendo las imagenes Docker"	
+    echo "Algo salio construyendo las imagenes Docker"
 }
 
+# LEVANTAR SERVICIOS SWARM
 {
-	source $(pwd)/secrets.sh
     # Levantar el swarm local
     docker swarm init --advertise-addr 127.0.0.1
     # Levantar la overlay network 
@@ -66,4 +88,7 @@
     echo "Se han levantado los servicios exitosamente"
 } || {
     echo "Ha ocurrido un error al levantar el SWARM"
+    # Se tira el nodo swarm y la red ckan
+    docker swarm leave --force
+    docker network rm mynetckan
 }
