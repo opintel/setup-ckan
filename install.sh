@@ -19,13 +19,13 @@ if [[ -z "$SITE_CKAN_URL" ]]; then
 fi
 
 # INSTALACION DE DEPENDENCIAS
-# {
-#   wget -qO- https://get.docker.com/ | sh
-#   wget https://bootstrap.pypa.io/ez_setup.py -O - | sudo python
-#   wget https://bootstrap.pypa.io/get-pip.py -O - | sudo python
-# } || {
-#   echo "Algo salio mal instalando las dependencias"
-# }
+{
+  wget -qO- https://get.docker.com/ | sh
+  wget https://bootstrap.pypa.io/ez_setup.py -O - | sudo python
+  wget https://bootstrap.pypa.io/get-pip.py -O - | sudo python
+} || {
+  echo "Algo salio mal instalando las dependencias"
+}
 
 
 # CONSTRUCCION DE IMAGENES
@@ -91,4 +91,11 @@ fi
     # Se tira el nodo swarm y la red ckan
     docker swarm leave --force
     docker network rm mynetckan
+}
+
+# Creacion de usuario administrador
+{
+  docker exec -it $(docker ps --filter ancestor=ckan/ckan-plugins:latest -q) /usr/lib/ckan/bin/paster --plugin=ckan sysadmin add admin -c /project/development.ini
+} || {
+  echo "Ha ocurrido un error al crear el usuario administrador"
 }
