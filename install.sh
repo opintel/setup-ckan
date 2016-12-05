@@ -85,6 +85,7 @@ fi
       --network mynetckan \
       --publish 80:5000/tcp ckan/ckan-plugins
 
+    sleep 60
     echo "Se han levantado los servicios exitosamente"
 } || {
     echo "Ha ocurrido un error al levantar el SWARM"
